@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 const App = () => {
-  const [geraltDice, setGeraltDice] = useState(["1", "1", 1, 1, 1]);
+  const [geraltDice, setGeraltDice] = useState([1, 1, 1, 1, 1]);
   const [opponentDice, setOpponentDice] = useState([1, 1, 1, 1, 1]);
   const [results, setResults] = useState(null);
   const [probabilities, setProbabilities] = useState(null);

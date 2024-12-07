@@ -4,4 +4,4 @@ const nextConfig = {
 	basePath: '/WitcherPokerCalculater',
 };
 
-export default nextConfig;
+module.exports = nextConfig
