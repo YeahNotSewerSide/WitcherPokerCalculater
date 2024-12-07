@@ -2,14 +2,14 @@
 import React, { useState } from "react";
 
 const App = () => {
-  const [geraltDice, setGeraltDice] = useState([1, 1, 1, 1, 1]);
+  const [geraltDice, setGeraltDice] = useState(["1", "1", 1, 1, 1]);
   const [opponentDice, setOpponentDice] = useState([1, 1, 1, 1, 1]);
   const [results, setResults] = useState(null);
   const [probabilities, setProbabilities] = useState(null);
 
   const handleChange = (e, index, setter) => {
     let value = parseInt(e.target.value);
-    if (isNaN(value) || value < 1 || value > 6) value = 1; // Default to 1 if invalid
+    if (isNaN(value)) value = e.target.value;
     setter((prev) => {
       const newDice = [...prev];
       newDice[index] = value;
@@ -78,8 +78,15 @@ const App = () => {
   };
 
   const calculateOdds = () => {
+
+    stop = false
+    geraltDice.forEach((d) => { let num = parseInt(d); if (isNaN(num) || num < 1 || num > 6) { stop = true; } });
     const geraltHand = determineHand(geraltDice);
+    if (stop) return;
+    opponentDice.forEach((d) => { let num = parseInt(d); if (isNaN(num) || num < 1 || num > 6) { stop = true; } });
     const opponentHand = determineHand(opponentDice);
+    if (stop) return;
+
 
     const geraltRerollDice = geraltDice.filter((d) => !geraltHand.keep.includes(d));
     const opponentRerollDice = opponentDice.filter((d) => !opponentHand.keep.includes(d));
@@ -128,7 +135,7 @@ const App = () => {
           {geraltDice.map((d, i) => (
             <input
               key={i}
-              type="number"
+              type="text"
               value={d}
               min="1"
               max="6"
@@ -143,7 +150,7 @@ const App = () => {
           {opponentDice.map((d, i) => (
             <input
               key={i}
-              type="number"
+              type="text"
               value={d}
               min="1"
               max="6"
