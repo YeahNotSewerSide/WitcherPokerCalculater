@@ -23,6 +23,7 @@ jobs:
 
       - name: Build
         run: |
+          mkdir out
           npm ci
           npm run build
           touch out/.nojekyll
